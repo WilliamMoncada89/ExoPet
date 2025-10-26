@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Fondo -->
+  <rect width="400" height="300" fill="#f8f9fa"/>
+  
+  <!-- Superficie de apoyo -->
+  <rect x="30" y="250" width="340" height="30" fill="#2c3e50" rx="5"/>
+  <rect x="35" y="255" width="330" height="20" fill="#34495e" rx="3"/>
+  
+  <!-- Estructura principal del terrario -->
+  <rect x="50" y="80" width="300" height="170" fill="none" stroke="#2c3e50" stroke-width="4"/>
+  
+  <!-- Vidrio frontal con reflejo -->
+  <rect x="52" y="82" width="296" height="166" fill="#e8f4fd" opacity="0.3"/>
+  <rect x="52" y="82" width="296" height="166" fill="none" stroke="#bdc3c7" stroke-width="1"/>
+  
+  <!-- Ventilación superior -->
+  <rect x="60" y="70" width="280" height="15" fill="#34495e"/>
+  <rect x="70" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="100" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="130" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="160" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="190" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="220" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="250" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="280" y="72" width="20" height="11" fill="#2c3e50"/>
+  <rect x="310" y="72" width="20" height="11" fill="#2c3e50"/>
+  
+  <!-- Puertas frontales -->
+  <line x1="200" y1="82" x2="200" y2="248" stroke="#2c3e50" stroke-width="3"/>
+  
+  <!-- Manijas de las puertas -->
+  <circle cx="180" cy="165" r="4" fill="#e74c3c"/>
+  <circle cx="220" cy="165" r="4" fill="#e74c3c"/>
+  
+  <!-- Interior del terrario -->
+  <!-- Sustrato -->
+  <rect x="55" y="220" width="290" height="25" fill="#8b4513"/>
+  <rect x="55" y="215" width="290" height="8" fill="#a0522d"/>
+  
+  <!-- Plantas artificiales -->
+  <ellipse cx="100" cy="210" rx="15" ry="25" fill="#27ae60"/>
+  <ellipse cx="95" cy="205" rx="8" ry="15" fill="#2ecc71"/>
+  <ellipse cx="105" cy="200" rx="6" ry="12" fill="#2ecc71"/>
+  
+  <ellipse cx="280" cy="215" rx="12" ry="20" fill="#27ae60"/>
+  <ellipse cx="285" cy="210" rx="6" ry="12" fill="#2ecc71"/>
+  
+  <!-- Cueva/escondite -->
+  <ellipse cx="200" cy="230" rx="40" ry="15" fill="#7f8c8d"/>
+  <ellipse cx="200" cy="225" rx="35" ry="12" fill="#95a5a6"/>
+  <ellipse cx="200" cy="225" rx="20" ry="8" fill="#2c3e50"/>
+  
+  <!-- Lámpara de calor -->
+  <rect x="120" y="85" width="60" height="15" fill="#34495e"/>
+  <rect x="125" y="90" width="50" height="8" fill="#f39c12"/>
+  <circle cx="150" cy="94" r="15" fill="#e67e22" opacity="0.7"/>
+  
+  <!-- Termómetro -->
+  <rect x="320" y="100" width="8" height="40" fill="#ecf0f1"/>
+  <rect x="322" y="102" width="4" height="36" fill="#e74c3c"/>
+  <circle cx="324" cy="142" r="4" fill="#e74c3c"/>
+  
+  <!-- Reflejo en el vidrio -->
+  <rect x="60" y="90" width="30" height="80" fill="#ffffff" opacity="0.2"/>
+  <rect x="300" y="120" width="20" height="60" fill="#ffffff" opacity="0.2"/>
+</svg>

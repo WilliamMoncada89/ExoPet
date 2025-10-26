@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Fondo -->
+  <rect width="400" height="300" fill="#f8f9fa"/>
+  
+  <!-- Base del acuario -->
+  <rect x="40" y="220" width="320" height="50" fill="#2c3e50" rx="8"/>
+  <rect x="45" y="225" width="310" height="40" fill="#34495e" rx="5"/>
+  
+  <!-- Acuario principal (forma curva) -->
+  <path d="M 50 220 Q 50 80 200 80 Q 350 80 350 220 Z" fill="#e3f2fd" stroke="#2980b9" stroke-width="4"/>
+  
+  <!-- Agua -->
+  <path d="M 55 215 Q 55 85 200 85 Q 345 85 345 215 Z" fill="#3498db" opacity="0.7"/>
+  
+  <!-- Superficie del agua con ondas -->
+  <path d="M 55 90 Q 100 85 150 90 Q 200 95 250 90 Q 300 85 345 90" fill="none" stroke="#5dade2" stroke-width="2"/>
+  
+  <!-- Sustrato del fondo -->
+  <path d="M 55 210 Q 55 205 200 205 Q 345 205 345 210 Q 345 215 200 215 Q 55 215 55 210 Z" fill="#8b4513"/>
+  
+  <!-- Plantas acuáticas -->
+  <path d="M 80 210 Q 75 180 85 150 Q 80 120 90 100" fill="none" stroke="#27ae60" stroke-width="4"/>
+  <path d="M 85 210 Q 90 185 80 160 Q 85 135 75 110" fill="none" stroke="#2ecc71" stroke-width="3"/>
+  <path d="M 90 210 Q 85 190 95 170 Q 90 150 100 130" fill="none" stroke="#27ae60" stroke-width="3"/>
+  
+  <path d="M 320 210 Q 315 185 325 160 Q 320 135 330 115" fill="none" stroke="#27ae60" stroke-width="4"/>
+  <path d="M 315 210 Q 320 190 310 170 Q 315 150 305 130" fill="none" stroke="#2ecc71" stroke-width="3"/>
+  
+  <!-- Coral artificial -->
+  <ellipse cx="150" cy="200" rx="20" ry="15" fill="#e74c3c"/>
+  <ellipse cx="145" cy="195" rx="12" ry="10" fill="#f39c12"/>
+  <ellipse cx="155" cy="190" rx="8" ry="8" fill="#e67e22"/>
+  
+  <ellipse cx="250" cy="205" rx="15" ry="12" fill="#9b59b6"/>
+  <ellipse cx="255" cy="200" rx="10" ry="8" fill="#8e44ad"/>
+  
+  <!-- Peces tropicales -->
+  <!-- Pez 1 -->
+  <ellipse cx="120" cy="140" rx="12" ry="6" fill="#f39c12"/>
+  <path d="M 108 140 L 100 135 L 100 145 Z" fill="#e67e22"/>
+  <circle cx="125" cy="138" r="2" fill="#2c3e50"/>
+  
+  <!-- Pez 2 -->
+  <ellipse cx="280" cy="160" rx="10" ry="5" fill="#e74c3c"/>
+  <path d="M 270 160 L 264 156 L 264 164 Z" fill="#c0392b"/>
+  <circle cx="284" cy="158" r="1.5" fill="#2c3e50"/>
+  
+  <!-- Pez 3 -->
+  <ellipse cx="200" cy="120" rx="8" ry="4" fill="#3498db"/>
+  <path d="M 192 120 L 187 117 L 187 123 Z" fill="#2980b9"/>
+  <circle cx="203" cy="119" r="1" fill="#2c3e50"/>
+  
+  <!-- Pez 4 -->
+  <ellipse cx="180" cy="180" rx="14" ry="7" fill="#9b59b6"/>
+  <path d="M 166 180 L 158 175 L 158 185 Z" fill="#8e44ad"/>
+  <circle cx="186" cy="177" r="2" fill="#2c3e50"/>
+  
+  <!-- Sistema de filtración -->
+  <rect x="360" y="100" width="30" height="80" fill="#34495e" rx="5"/>
+  <rect x="365" y="105" width="20" height="70" fill="#2c3e50" rx="3"/>
+  <circle cx="375" cy="120" r="3" fill="#e74c3c"/>
+  <circle cx="375" cy="140" r="3" fill="#27ae60"/>
+  <circle cx="375" cy="160" r="3" fill="#3498db"/>
+  
+  <!-- Tubos del filtro -->
+  <rect x="350" y="115" width="15" height="4" fill="#7f8c8d"/>
+  <rect x="350" y="135" width="15" height="4" fill="#7f8c8d"/>
+  
+  <!-- Iluminación LED -->
+  <rect x="60" y="70" width="280" height="8" fill="#34495e"/>
+  <rect x="70" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="100" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="130" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="160" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="190" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="220" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="250" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="280" y="72" width="20" height="4" fill="#f1c40f"/>
+  <rect x="310" y="72" width="20" height="4" fill="#f1c40f"/>
+  
+  <!-- Burbujas -->
+  <circle cx="100" cy="170" r="2" fill="#ffffff" opacity="0.7"/>
+  <circle cx="105" cy="150" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="98" cy="130" r="1" fill="#ffffff" opacity="0.7"/>
+  <circle cx="103" cy="110" r="0.5" fill="#ffffff" opacity="0.7"/>
+  
+  <circle cx="320" cy="180" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="318" cy="160" r="1" fill="#ffffff" opacity="0.7"/>
+  <circle cx="322" cy="140" r="0.5" fill="#ffffff" opacity="0.7"/>
+  
+  <!-- Reflejo en el vidrio -->
+  <path d="M 60 90 Q 60 100 70 120 Q 65 140 75 160" fill="#ffffff" opacity="0.2"/>
+</svg>

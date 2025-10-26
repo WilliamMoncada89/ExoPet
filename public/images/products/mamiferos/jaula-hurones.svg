@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Fondo -->
+  <rect width="400" height="300" fill="#f8f9fa"/>
+  
+  <!-- Base de la jaula -->
+  <rect x="50" y="240" width="300" height="40" fill="#2c3e50" rx="5"/>
+  <rect x="55" y="245" width="290" height="30" fill="#34495e" rx="3"/>
+  
+  <!-- Estructura principal - 3 pisos -->
+  <rect x="70" y="60" width="260" height="180" fill="none" stroke="#7f8c8d" stroke-width="3"/>
+  
+  <!-- Divisiones de pisos -->
+  <line x1="70" y1="120" x2="330" y2="120" stroke="#7f8c8d" stroke-width="3"/>
+  <line x1="70" y1="180" x2="330" y2="180" stroke="#7f8c8d" stroke-width="3"/>
+  
+  <!-- Barras verticales -->
+  <line x1="90" y1="60" x2="90" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="110" y1="60" x2="110" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="130" y1="60" x2="130" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="150" y1="60" x2="150" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="170" y1="60" x2="170" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="190" y1="60" x2="190" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="210" y1="60" x2="210" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="230" y1="60" x2="230" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="250" y1="60" x2="250" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="270" y1="60" x2="270" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="290" y1="60" x2="290" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  <line x1="310" y1="60" x2="310" y2="240" stroke="#95a5a6" stroke-width="2"/>
+  
+  <!-- Plataformas de cada piso -->
+  <rect x="75" y="115" width="250" height="8" fill="#8b4513"/>
+  <rect x="75" y="175" width="250" height="8" fill="#8b4513"/>
+  <rect x="75" y="235" width="250" height="8" fill="#8b4513"/>
+  
+  <!-- Rampas conectoras -->
+  <rect x="280" y="125" width="40" height="8" fill="#a0522d" transform="rotate(30 300 129)"/>
+  <rect x="280" y="185" width="40" height="8" fill="#a0522d" transform="rotate(30 300 189)"/>
+  
+  <!-- Puerta principal -->
+  <rect x="250" y="140" width="70" height="80" fill="none" stroke="#34495e" stroke-width="3"/>
+  <circle cx="315" cy="180" r="3" fill="#e74c3c"/>
+  
+  <!-- Comederos y bebederos en cada piso -->
+  <!-- Piso superior -->
+  <ellipse cx="100" cy="110" rx="12" ry="6" fill="#3498db"/>
+  <ellipse cx="130" cy="110" rx="12" ry="6" fill="#e67e22"/>
+  
+  <!-- Piso medio -->
+  <ellipse cx="200" cy="170" rx="12" ry="6" fill="#3498db"/>
+  <ellipse cx="230" cy="170" rx="12" ry="6" fill="#e67e22"/>
+  
+  <!-- Piso inferior -->
+  <ellipse cx="150" cy="230" rx="12" ry="6" fill="#3498db"/>
+  <ellipse cx="180" cy="230" rx="12" ry="6" fill="#e67e22"/>
+  
+  <!-- Hamacas colgantes -->
+  <ellipse cx="160" cy="95" rx="25" ry="8" fill="#9b59b6"/>
+  <line x1="135" y1="95" x2="135" y2="85" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="185" y1="95" x2="185" y2="85" stroke="#2c3e50" stroke-width="1"/>
+  
+  <ellipse cx="220" cy="155" rx="20" ry="6" fill="#e91e63"/>
+  <line x1="200" y1="155" x2="200" y2="145" stroke="#2c3e50" stroke-width="1"/>
+  <line x1="240" y1="155" x2="240" y2="145" stroke="#2c3e50" stroke-width="1"/>
+  
+  <!-- Juguetes -->
+  <circle cx="120" cy="200" r="8" fill="#f39c12"/>
+  <circle cx="120" cy="200" r="5" fill="#e67e22"/>
+  
+  <!-- Hurón decorativo en el piso medio -->
+  <ellipse cx="180" cy="150" rx="15" ry="6" fill="#8b4513"/>
+  <ellipse cx="175" cy="148" rx="4" ry="3" fill="#654321"/>
+  <circle cx="173" cy="147" r="1" fill="#2c3e50"/>
+  <ellipse cx="185" cy="152" rx="8" ry="3" fill="#a0522d"/>
+  
+  <!-- Techo -->
+  <rect x="65" y="50" width="270" height="15" fill="#34495e"/>
+  <rect x="70" y="55" width="260" height="8" fill="#2c3e50"/>
+</svg>

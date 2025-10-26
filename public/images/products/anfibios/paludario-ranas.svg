@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Fondo -->
+  <rect width="400" height="300" fill="#f8f9fa"/>
+  
+  <!-- Base del paludario -->
+  <rect x="40" y="220" width="320" height="60" fill="#2c3e50" rx="8"/>
+  <rect x="45" y="225" width="310" height="50" fill="#34495e" rx="5"/>
+  
+  <!-- Paredes del paludario -->
+  <rect x="50" y="80" width="300" height="140" fill="#e8f5e8" stroke="#27ae60" stroke-width="3"/>
+  
+  <!-- Tapa con malla -->
+  <rect x="45" y="70" width="310" height="15" fill="#34495e"/>
+  <rect x="50" y="75" width="300" height="8" fill="#2c3e50"/>
+  
+  <!-- Malla de ventilación -->
+  <pattern id="mesh" patternUnits="userSpaceOnUse" width="10" height="10">
+    <rect width="10" height="10" fill="#7f8c8d"/>
+    <rect x="1" y="1" width="8" height="8" fill="#34495e"/>
+  </pattern>
+  <rect x="60" y="72" width="280" height="6" fill="url(#mesh)"/>
+  
+  <!-- Zona acuática (parte inferior) -->
+  <rect x="55" y="180" width="290" height="40" fill="#3498db" opacity="0.8"/>
+  
+  <!-- Superficie del agua -->
+  <path d="M 55 180 Q 100 175 150 180 Q 200 185 250 180 Q 300 175 345 180" fill="none" stroke="#2980b9" stroke-width="2"/>
+  
+  <!-- Zona terrestre (rampa) -->
+  <path d="M 55 180 L 200 140 L 345 140 L 345 180 Z" fill="#8b4513"/>
+  <path d="M 55 175 L 200 135 L 345 135 L 345 175 Z" fill="#a0522d"/>
+  
+  <!-- Sustrato acuático -->
+  <rect x="55" y="210" width="290" height="10" fill="#654321"/>
+  
+  <!-- Plantas acuáticas -->
+  <path d="M 80 210 Q 75 190 85 170 Q 80 150 90 130" fill="none" stroke="#27ae60" stroke-width="4"/>
+  <path d="M 85 210 Q 90 195 80 175 Q 85 155 75 135" fill="none" stroke="#2ecc71" stroke-width="3"/>
+  
+  <path d="M 320 210 Q 315 195 325 175 Q 320 155 330 140" fill="none" stroke="#27ae60" stroke-width="4"/>
+  <path d="M 315 210 Q 320 200 310 180 Q 315 160 305 145" fill="none" stroke="#2ecc71" stroke-width="3"/>
+  
+  <!-- Plantas terrestres -->
+  <ellipse cx="150" cy="130" rx="15" ry="20" fill="#27ae60"/>
+  <ellipse cx="145" cy="125" rx="10" ry="15" fill="#2ecc71"/>
+  <ellipse cx="155" cy="120" rx="8" ry="12" fill="#27ae60"/>
+  
+  <ellipse cx="250" cy="135" rx="12" ry="18" fill="#27ae60"/>
+  <ellipse cx="255" cy="130" rx="8" ry="12" fill="#2ecc71"/>
+  
+  <!-- Musgo -->
+  <ellipse cx="120" cy="145" rx="20" ry="8" fill="#228b22"/>
+  <ellipse cx="280" cy="150" rx="25" ry="10" fill="#228b22"/>
+  <ellipse cx="200" cy="140" rx="15" ry="6" fill="#228b22"/>
+  
+  <!-- Tronco flotante -->
+  <ellipse cx="180" cy="175" rx="30" ry="8" fill="#8b4513"/>
+  <ellipse cx="180" cy="173" rx="25" ry="6" fill="#a0522d"/>
+  <circle cx="165" cy="173" r="2" fill="#654321"/>
+  <circle cx="195" cy="173" r="2" fill="#654321"/>
+  
+  <!-- Ranas -->
+  <!-- Rana 1 en el agua -->
+  <ellipse cx="100" cy="175" rx="8" ry="6" fill="#228b22"/>
+  <ellipse cx="95" cy="173" rx="3" ry="2" fill="#32cd32"/>
+  <ellipse cx="105" cy="173" rx="3" ry="2" fill="#32cd32"/>
+  <circle cx="93" cy="172" r="1" fill="#2c3e50"/>
+  <circle cx="107" cy="172" r="1" fill="#2c3e50"/>
+  
+  <!-- Rana 2 en tierra -->
+  <ellipse cx="220" cy="145" rx="10" ry="7" fill="#228b22"/>
+  <ellipse cx="214" cy="143" rx="3" ry="2" fill="#32cd32"/>
+  <ellipse cx="226" cy="143" rx="3" ry="2" fill="#32cd32"/>
+  <circle cx="212" cy="142" r="1" fill="#2c3e50"/>
+  <circle cx="228" cy="142" r="1" fill="#2c3e50"/>
+  
+  <!-- Rana 3 en el tronco -->
+  <ellipse cx="185" cy="170" rx="6" ry="4" fill="#32cd32"/>
+  <circle cx="182" cy="169" r="1" fill="#2c3e50"/>
+  <circle cx="188" cy="169" r="1" fill="#2c3e50"/>
+  
+  <!-- Sistema de cascada -->
+  <rect x="340" y="100" width="8" height="40" fill="#3498db" opacity="0.6"/>
+  <path d="M 340 100 Q 335 110 340 120 Q 345 130 340 140" fill="#3498db" opacity="0.4"/>
+  
+  <!-- Bomba de agua -->
+  <rect x="330" y="200" width="15" height="15" fill="#34495e"/>
+  <circle cx="337.5" cy="207.5" r="3" fill="#e74c3c"/>
+  
+  <!-- Iluminación UVB -->
+  <rect x="60" y="60" width="280" height="8" fill="#f39c12"/>
+  <rect x="70" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="100" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="130" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="160" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="190" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="220" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="250" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="280" y="62" width="20" height="4" fill="#f1c40f"/>
+  <rect x="310" y="62" width="20" height="4" fill="#f1c40f"/>
+  
+  <!-- Termómetro/higrómetro -->
+  <rect x="55" y="90" width="12" height="30" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <rect x="57" y="95" width="8" height="20" fill="#2c3e50"/>
+  <rect x="58" y="100" width="6" height="12" fill="#27ae60"/>
+  <circle cx="61" cy="115" r="2" fill="#27ae60"/>
+  
+  <!-- Burbujas en el agua -->
+  <circle cx="120" cy="190" r="2" fill="#ffffff" opacity="0.7"/>
+  <circle cx="125" cy="185" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="118" cy="180" r="1" fill="#ffffff" opacity="0.7"/>
+  
+  <circle cx="300" cy="195" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="305" cy="190" r="1" fill="#ffffff" opacity="0.7"/>
+  <circle cx="298" cy="185" r="0.5" fill="#ffffff" opacity="0.7"/>
+  
+  <!-- Reflejo en el vidrio -->
+  <rect x="55" y="85" width="6" height="130" fill="#ffffff" opacity="0.3"/>
+</svg>
