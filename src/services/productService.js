@@ -562,71 +562,101 @@ export const productService = {
       if (import.meta.env.DEV) {
         const categories = [
           {
+            id: 'todo',
+            name: 'Todo',
+            slug: 'todo',
+            description: 'Todos los productos disponibles',
+            image: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400',
+            subcategories: []
+          },
+          {
             id: 'aves',
             name: 'Aves',
+            slug: 'aves',
             description: 'Accesorios para loros, canarios y aves exóticas',
             image: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400',
             subcategories: [
-              { id: 'escondites', name: 'Jaulas y Escondites' },
-              { id: 'comederos', name: 'Comederos' },
-              { id: 'bebederos', name: 'Bebederos' },
-              { id: 'juguetes', name: 'Juguetes' },
-              { id: 'accesorios', name: 'Accesorios' }
+              { id: 'camas', name: 'Camas', slug: 'camas' },
+              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
+              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
+              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
+              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+            ]
+          },
+          {
+            id: 'mamiferos',
+            name: 'Mamíferos',
+            slug: 'mamiferos',
+            description: 'Accesorios para hurones, conejos y roedores',
+            image: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400',
+            subcategories: [
+              { id: 'camas', name: 'Camas', slug: 'camas' },
+              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
+              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
+              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
+              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
             ]
           },
           {
             id: 'reptiles',
             name: 'Reptiles',
+            slug: 'reptiles',
             description: 'Terrarios y accesorios para reptiles',
             image: 'https://images.unsplash.com/photo-1544568100-847a948585b9?w=400',
             subcategories: [
-              { id: 'escondites', name: 'Terrarios y Escondites' },
-              { id: 'comederos', name: 'Comederos' },
-              { id: 'accesorios', name: 'Iluminación y Calefacción' }
-            ]
-          },
-          {
-            id: 'mamiferos',
-            name: 'Mamíferos Pequeños',
-            description: 'Accesorios para hurones, conejos y roedores',
-            image: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400',
-            subcategories: [
-              { id: 'escondites', name: 'Jaulas y Escondites' },
-              { id: 'camas', name: 'Camas y Hamacas' },
-              { id: 'juguetes', name: 'Juguetes' },
-              { id: 'accesorios', name: 'Accesorios' }
-            ]
-          },
-          {
-            id: 'peces',
-            name: 'Peces Exóticos',
-            description: 'Acuarios y decoraciones para peces tropicales',
-            image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400',
-            subcategories: [
-              { id: 'escondites', name: 'Acuarios' },
-              { id: 'comederos', name: 'Alimentación' },
-              { id: 'juguetes', name: 'Decoración' },
-              { id: 'accesorios', name: 'Filtros y Accesorios' }
-            ]
-          },
-          {
-            id: 'aracnidos',
-            name: 'Arácnidos',
-            description: 'Terrarios especializados para tarántulas y arañas',
-            image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
-            subcategories: [
-              { id: 'escondites', name: 'Terrarios y Escondites' },
-              { id: 'accesorios', name: 'Accesorios' }
+              { id: 'camas', name: 'Camas', slug: 'camas' },
+              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
+              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
+              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
+              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
             ]
           },
           {
             id: 'anfibios',
             name: 'Anfibios',
+            slug: 'anfibios',
             description: 'Paludarios y accesorios para ranas y salamandras',
             image: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400',
             subcategories: [
-              { id: 'escondites', name: 'Paludarios' },
-              { id: 'accesorios', name: 'Sustratos y Accesorios' }
+              { id: 'camas', name: 'Camas', slug: 'camas' },
+              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
+              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
+              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
+              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+            ]
+          },
+          {
+            id: 'peces',
+            name: 'Peces',
+            slug: 'peces',
+            description: 'Acuarios y decoraciones para peces tropicales',
+            image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400',
+            subcategories: [
+              { id: 'camas', name: 'Camas', slug: 'camas' },
+              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
+              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
+              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
+              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+            ]
+          },
+          {
+            id: 'aracnidos',
+            name: 'Arácnidos',
+            slug: 'aracnidos',
+            description: 'Terrarios especializados para tarántulas y arañas',
+            image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
+            subcategories: [
+              { id: 'camas', name: 'Camas', slug: 'camas' },
+              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
+              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
+              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
+              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
             ]
           }
         ]

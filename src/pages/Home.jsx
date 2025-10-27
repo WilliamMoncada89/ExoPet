@@ -6,6 +6,34 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      title: "Terrarios",
+      subtitle: "Reptiles",
+      description: "Espacios perfectos para el hábitat de tus reptiles",
+      image: "/images/products/reptiles/terrario_reptil_1.png",
+      link: "/productos?categoria=reptiles",
+      buttonText: "Ver Terrarios"
+    },
+    {
+      title: "Peceras",
+      subtitle: "Peces",
+      description: "Acuarios modernos para tus peces exóticos",
+      image: "/images/products/peces/pecera_pez_1.png",
+      link: "/productos?categoria=peces",
+      buttonText: "Ver Peceras"
+    },
+    {
+      title: "Jaulas",
+      subtitle: "Aves",
+      description: "Hogares cómodos y seguros para tus aves",
+      image: "/images/products/aves/jaula_ave_1.png",
+      link: "/productos?categoria=aves",
+      buttonText: "Ver Jaulas"
+    }
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +60,26 @@ const Home = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -46,26 +94,39 @@ const Home = () => {
       {/* Hero Section con Carrusel */}
       <section className="hero-section">
         <div className="hero-carousel">
-          <div className="hero-slide active">
-            <div className="hero-content">
-              <div className="hero-text">
-                <h1>Terrarios</h1>
-                <h2>Reptiles</h2>
-                <p>Espacios perfectos para el hábitat de tus reptiles</p>
-                <Link to="/productos?categoria=reptiles" className="hero-btn">
-                  Ver Terrarios
-                </Link>
-              </div>
-              <div className="hero-image">
-                <img src="/images/products/reptiles/terrario-vidrio.svg" alt="Terrarios" />
+          {slides.map((slide, index) => (
+            <div key={index} className={`hero-slide ${index === currentSlide ? 'active' : ''}`}>
+              <div className="hero-content">
+                <div className="hero-text">
+                  <h1>{slide.title}</h1>
+                  <h2>{slide.subtitle}</h2>
+                  <p>{slide.description}</p>
+                  <Link to={slide.link} className="hero-btn">
+                    {slide.buttonText}
+                  </Link>
+                </div>
+                <div className="hero-image">
+                  <img src={slide.image} alt={slide.title} />
+                </div>
               </div>
             </div>
-          </div>
+          ))}
           
           {/* Controles del carrusel */}
           <div className="hero-controls">
-            <button className="hero-prev">‹</button>
-            <button className="hero-next">›</button>
+            <button className="hero-prev" onClick={prevSlide}>‹</button>
+            <button className="hero-next" onClick={nextSlide}>›</button>
+          </div>
+
+          {/* Indicadores del carrusel */}
+          <div className="hero-indicators">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                className={`indicator ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => goToSlide(index)}
+              />
+            ))}
           </div>
         </div>
       </section>

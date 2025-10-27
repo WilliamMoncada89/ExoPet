@@ -13,8 +13,8 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       // Verificar si el token es válido
       authService.verifyToken(token)
-        .then(userData => {
-          setUser(userData)
+        .then(response => {
+          setUser(response.data.user)
         })
         .catch(() => {
           localStorage.removeItem('exopet-token')
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await authService.login(email, password)
-      setUser(response.user)
+      setUser(response.data.user)
       localStorage.setItem('exopet-token', response.token)
       return { success: true }
     } catch (error) {
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     updateProfile,
     loading,
     isAuthenticated: !!user,
-    isAdmin: user?.rol === 'admin'
+    isAdmin: user?.role === 'admin'
   }
 
   return (

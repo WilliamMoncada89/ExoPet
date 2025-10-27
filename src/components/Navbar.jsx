@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { productService } from '../services/productService';
 
 const Navbar = () => {
   const { cartItems } = useCart();
+  const { user, logout, isAuthenticated } = useAuth();
   const [categories, setCategories] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,8 +14,10 @@ const Navbar = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const categoriesData = await productService.getCategories();
-        setCategories(categoriesData);
+        const response = await productService.getCategories();
+        if (response.success) {
+          setCategories(response.data);
+        }
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
@@ -31,6 +35,10 @@ const Navbar = () => {
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   const totalItems = cartItems ? cartItems.reduce((sum, item) => sum + item.quantity, 0) : 0;
@@ -89,13 +97,29 @@ const Navbar = () => {
                 </div>
               </Link>
               
-              <Link to="/login" className="login-button">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                <span>INICIAR SESIÓN</span>
-              </Link>
+              {isAuthenticated ? (
+                <div className="user-menu">
+                  <span className="welcome-message">
+                    ¡Hola, {user?.firstName || user?.name || 'Usuario'}!
+                  </span>
+                  <button onClick={handleLogout} className="logout-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                      <polyline points="16,17 21,12 16,7"></polyline>
+                      <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span>CERRAR SESIÓN</span>
+                  </button>
+                </div>
+              ) : (
+                <Link to="/login" className="login-button">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  <span>INICIAR SESIÓN</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
