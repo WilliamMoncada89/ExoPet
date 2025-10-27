@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { productService } from '../services/productService';
 
 const Home = () => {
-  const [featuredProducts, setFeaturedProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -38,14 +37,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [productsResponse, categoriesResponse] = await Promise.all([
-          productService.getFeaturedProducts(),
-          productService.getCategories()
-        ]);
-        
-        if (productsResponse.success) {
-          setFeaturedProducts(productsResponse.data);
-        }
+        const categoriesResponse = await productService.getCategories();
         
         if (categoriesResponse.success) {
           setCategories(categoriesResponse.data);
@@ -156,32 +148,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Productos Destacados */}
-      <section className="featured-products">
-        <div className="container">
-          <h2>Productos Destacados</h2>
-          <div className="products-grid">
-            {featuredProducts.slice(0, 8).map((product) => (
-              <div key={product.id} className="product-card">
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
-                  <div className="product-badge">Destacado</div>
-                </div>
-                <div className="product-info">
-                  <h3>{product.name}</h3>
-                  <p className="product-price">${product.price?.toLocaleString('es-CL')}</p>
-                  <Link 
-                    to={`/producto/${product.id}`} 
-                    className="product-btn"
-                  >
-                    Ver Producto
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Sección de Beneficios */}
       <section className="benefits-section">

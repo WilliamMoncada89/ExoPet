@@ -20,12 +20,25 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'La categoría es requerida'],
-    enum: ['aves', 'reptiles', 'mamiferos-pequenos', 'peces', 'aracnidos', 'anfibios']
+    enum: ['aves', 'reptiles', 'mamiferos', 'peces', 'aracnidos', 'anfibios']
   },
   subcategory: {
     type: String,
     required: [true, 'La subcategoría es requerida'],
-    enum: ['escondites', 'comederos', 'bebederos', 'juguetes', 'camas', 'accesorios']
+    enum: [
+      // Subcategorías de Aves
+      'perchas', 'nidos', 'arneses', 'comederos', 'bebederos', 'juguetes', 'escondites', 'jaulas', 'alimentacion', 'higiene', 'transportadoras',
+      // Subcategorías de Mamíferos
+      'camas',
+      // Subcategorías de Reptiles
+      'terrarios', 'calefaccion', 'iluminacion',
+      // Subcategorías de Peces
+      'acuarios', 'filtros', 'calentadores',
+      // Subcategorías de Anfibios
+      'acuaterrarios', 'humidificacion', 'filtracion',
+      // Subcategorías de Arácnidos
+      'sustratos'
+    ]
   },
   image: {
     type: String,

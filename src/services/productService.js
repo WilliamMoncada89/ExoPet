@@ -573,22 +573,27 @@ export const productService = {
             id: 'aves',
             name: 'Aves',
             slug: 'aves',
-            description: 'Accesorios para loros, canarios y aves exóticas',
+            description: 'Loros, canarios, periquitos, cacatúas',
             image: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400',
             subcategories: [
-              { id: 'camas', name: 'Camas', slug: 'camas' },
-              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
+              { id: 'perchas', name: 'Perchas y columpios', slug: 'perchas' },
+              { id: 'nidos', name: 'Nidos', slug: 'nidos' },
+              { id: 'arneses', name: 'Arneses', slug: 'arneses' },
               { id: 'comederos', name: 'Comederos', slug: 'comederos' },
-              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
               { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
-              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+              { id: 'escondites', name: 'Escondites', slug: 'escondites' },
+              { id: 'jaulas', name: 'Jaulas y pajareras', slug: 'jaulas' },
+              { id: 'alimentacion', name: 'Alimentación', slug: 'alimentacion' },
+              { id: 'higiene', name: 'Higiene y salud', slug: 'higiene' },
+              { id: 'transportadoras', name: 'Transportadoras', slug: 'transportadoras' }
             ]
           },
           {
             id: 'mamiferos',
             name: 'Mamíferos',
             slug: 'mamiferos',
-            description: 'Accesorios para hurones, conejos y roedores',
+            description: 'Perros, gatos, hámsters, conejos, hurones',
             image: 'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400',
             subcategories: [
               { id: 'camas', name: 'Camas', slug: 'camas' },
@@ -596,67 +601,82 @@ export const productService = {
               { id: 'comederos', name: 'Comederos', slug: 'comederos' },
               { id: 'escondites', name: 'Escondites', slug: 'escondites' },
               { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
-              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+              { id: 'alimentacion', name: 'Alimentación', slug: 'alimentacion' },
+              { id: 'higiene', name: 'Higiene y Cuidado', slug: 'higiene' },
+              { id: 'jaulas', name: 'Jaulas y Corrales', slug: 'jaulas' },
+              { id: 'transportadoras', name: 'Transportadoras y Viaje', slug: 'transportadoras' }
             ]
           },
           {
             id: 'reptiles',
             name: 'Reptiles',
             slug: 'reptiles',
-            description: 'Terrarios y accesorios para reptiles',
+            description: 'Lagartos, serpientes, tortugas',
             image: 'https://images.unsplash.com/photo-1544568100-847a948585b9?w=400',
             subcategories: [
-              { id: 'camas', name: 'Camas', slug: 'camas' },
-              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
-              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
+              { id: 'bebederos', name: 'Bebederos y Comederos', slug: 'bebederos' },
               { id: 'escondites', name: 'Escondites', slug: 'escondites' },
-              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
-              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+              { id: 'terrarios', name: 'Terrarios y Vivariums', slug: 'terrarios' },
+              { id: 'calefaccion', name: 'Calefacción e Iluminación', slug: 'calefaccion' },
+              { id: 'sustratos', name: 'Sustratos y Decoración', slug: 'sustratos' },
+              { id: 'alimentacion', name: 'Alimentación y Suplementos', slug: 'alimentacion' },
+              { id: 'iluminacion', name: 'Iluminación', slug: 'iluminacion' },
+              { id: 'humidificacion', name: 'Humidificación', slug: 'humidificacion' },
+              { id: 'termostatos', name: 'Termostatos', slug: 'termostatos' }
             ]
           },
           {
             id: 'anfibios',
             name: 'Anfibios',
             slug: 'anfibios',
-            description: 'Paludarios y accesorios para ranas y salamandras',
+            description: 'Ranas, sapos, ajolotes, salamandras',
             image: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400',
             subcategories: [
-              { id: 'camas', name: 'Camas', slug: 'camas' },
-              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
-              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
               { id: 'escondites', name: 'Escondites', slug: 'escondites' },
-              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
-              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+              { id: 'acuaterrarios', name: 'Acuaterrarios', slug: 'acuaterrarios' },
+              { id: 'humidificacion', name: 'Humidificación', slug: 'humidificacion' },
+              { id: 'sustratos', name: 'Sustratos y Musgos', slug: 'sustratos' },
+              { id: 'filtracion', name: 'Filtración', slug: 'filtracion' },
+              { id: 'iluminacion', name: 'Iluminación', slug: 'iluminacion' },
+              { id: 'alimentacion', name: 'Alimentación y Suplementos', slug: 'alimentacion' },
+              { id: 'calefaccion', name: 'Calefacción', slug: 'calefaccion' },
+              { id: 'termostatos', name: 'Termostatos', slug: 'termostatos' }
             ]
           },
           {
             id: 'peces',
             name: 'Peces',
             slug: 'peces',
-            description: 'Acuarios y decoraciones para peces tropicales',
+            description: 'Peces tropicales y de agua dulce',
             image: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400',
             subcategories: [
-              { id: 'camas', name: 'Camas', slug: 'camas' },
-              { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
               { id: 'comederos', name: 'Comederos', slug: 'comederos' },
               { id: 'escondites', name: 'Escondites', slug: 'escondites' },
-              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
-              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+              { id: 'acuarios', name: 'Acuarios y Peceras', slug: 'acuarios' },
+              { id: 'filtros', name: 'Filtros', slug: 'filtros' },
+              { id: 'calentadores', name: 'Calentadores', slug: 'calentadores' },
+              { id: 'iluminacion', name: 'Iluminación', slug: 'iluminacion' },
+              { id: 'sustratos', name: 'Sustratos y Gravas', slug: 'sustratos' },
+              { id: 'alimentacion', name: 'Alimentación', slug: 'alimentacion' },
+              { id: 'termostatos', name: 'Termostatos', slug: 'termostatos' }
             ]
           },
           {
             id: 'aracnidos',
             name: 'Arácnidos',
             slug: 'aracnidos',
-            description: 'Terrarios especializados para tarántulas y arañas',
+            description: 'Tarántulas, escorpiones',
             image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400',
             subcategories: [
-              { id: 'camas', name: 'Camas', slug: 'camas' },
               { id: 'bebederos', name: 'Bebederos', slug: 'bebederos' },
-              { id: 'comederos', name: 'Comederos', slug: 'comederos' },
               { id: 'escondites', name: 'Escondites', slug: 'escondites' },
-              { id: 'juguetes', name: 'Juguetes', slug: 'juguetes' },
-              { id: 'ropa', name: 'Ropa', slug: 'ropa' }
+              { id: 'terrarios', name: 'Terrarios y Contenedores', slug: 'terrarios' },
+              { id: 'sustratos', name: 'Sustratos', slug: 'sustratos' },
+              { id: 'alimentacion', name: 'Alimentación', slug: 'alimentacion' },
+              { id: 'iluminacion', name: 'Iluminación y Calefacción', slug: 'iluminacion' },
+              { id: 'calefaccion', name: 'Calefacción', slug: 'calefaccion' },
+              { id: 'humidificacion', name: 'Humidificación', slug: 'humidificacion' },
+              { id: 'termostatos', name: 'Termostatos', slug: 'termostatos' }
             ]
           }
         ]

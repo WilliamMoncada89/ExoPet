@@ -31,6 +31,20 @@ const ProductCatalog = () => {
   }, [])
 
   useEffect(() => {
+    // Actualizar filtros basados en parámetros de URL
+    const categoryParam = searchParams.get('categoria') || 'all'
+    const subcategoryParam = searchParams.get('subcategoria') || 'all'
+    const searchParam = searchParams.get('busqueda') || searchParams.get('search') || ''
+    
+    setFilters(prev => ({
+      ...prev,
+      category: categoryParam,
+      subcategory: subcategoryParam,
+      search: searchParam
+    }))
+  }, [searchParams])
+
+  useEffect(() => {
     fetchProducts()
   }, [filters])
 
@@ -249,8 +263,16 @@ const ProductCatalog = () => {
           </div>
         </div>
 
-        {/* Results Info */}
-        <div className="results-info mb-6">
+        {/* Results Header */}
+        <div className="results-header mb-6">
+          <h2 className="text-xl font-semibold text-gray-900">
+            {filters.category !== 'all' && filters.subcategory !== 'all' 
+              ? `${categories.find(cat => cat.id === filters.category)?.name || ''} - ${getSubcategories().find(sub => sub.id === filters.subcategory)?.name || ''}`
+              : filters.category !== 'all' 
+                ? categories.find(cat => cat.id === filters.category)?.name || 'Productos'
+                : 'Todos los Productos'
+            }
+          </h2>
           <p className="text-gray-600">
             {loading ? 'Cargando...' : `${products.length} productos encontrados`}
           </p>
