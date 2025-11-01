@@ -175,7 +175,8 @@ orderSchema.pre('save', async function(next) {
 });
 
 // Índices
-orderSchema.index({ orderNumber: 1 }, { unique: true });
+// Eliminar índice duplicado ya que unique: true en el schema ya crea el índice
+// orderSchema.index({ orderNumber: 1 }, { unique: true });
 orderSchema.index({ user: 1 });
 orderSchema.index({ status: 1 });
 orderSchema.index({ createdAt: -1 });

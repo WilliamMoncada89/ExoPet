@@ -4,6 +4,8 @@ import AppError from '../utils/appError.js';
 
 // Obtener todos los productos con filtros y paginación
 export const getAllProducts = catchAsync(async (req, res, next) => {
+  console.log('🔍 getAllProducts llamado con query:', req.query);
+  
   const {
     page = 1,
     limit = 12,
@@ -47,6 +49,8 @@ export const getAllProducts = catchAsync(async (req, res, next) => {
       .lean(),
     Product.countDocuments(filter)
   ]);
+
+  console.log('📊 getAllProducts: Productos encontrados:', products.length, 'Total:', total);
 
   const totalPages = Math.ceil(total / limit);
 
@@ -157,7 +161,7 @@ export const getCategories = catchAsync(async (req, res, next) => {
   const categoryMap = {
     'aves': { name: 'Aves', icon: '🦜', description: 'Accesorios para aves exóticas' },
     'reptiles': { name: 'Reptiles', icon: '🦎', description: 'Accesorios para reptiles' },
-    'mamiferos-pequenos': { name: 'Mamíferos Pequeños', icon: '🐹', description: 'Accesorios para mamíferos pequeños' },
+    'mamiferos': { name: 'Mamíferos', icon: '🐹', description: 'Accesorios para mamíferos pequeños' },
     'peces': { name: 'Peces', icon: '🐠', description: 'Accesorios para peces exóticos' },
     'aracnidos': { name: 'Arácnidos', icon: '🕷️', description: 'Accesorios para arácnidos' },
     'anfibios': { name: 'Anfibios', icon: '🐸', description: 'Accesorios para anfibios' }
@@ -230,9 +234,14 @@ export const deleteProduct = catchAsync(async (req, res, next) => {
 export const checkStock = catchAsync(async (req, res, next) => {
   const { items } = req.body; // Array de { productId, quantity }
   
+  console.log('🔍 CheckStock - Items recibidos:', JSON.stringify(items, null, 2));
+  
   const stockCheck = await Promise.all(
     items.map(async (item) => {
+      console.log(`🔍 Buscando producto con ID: ${item.productId}`);
       const product = await Product.findById(item.productId);
+      console.log(`🔍 Producto encontrado:`, product ? `${product.name} - Stock: ${product.stock}` : 'No encontrado');
+      
       return {
         productId: item.productId,
         requestedQuantity: item.quantity,
@@ -243,6 +252,8 @@ export const checkStock = catchAsync(async (req, res, next) => {
   );
 
   const allAvailable = stockCheck.every(item => item.isAvailable);
+  
+  console.log('🔍 CheckStock - Resultado:', JSON.stringify(stockCheck, null, 2));
 
   res.status(200).json({
     success: true,

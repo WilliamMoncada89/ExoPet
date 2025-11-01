@@ -142,7 +142,8 @@ const userSchema = new mongoose.Schema({
 });
 
 // Índices
-userSchema.index({ email: 1 }, { unique: true });
+// Eliminar índice duplicado ya que unique: true en el schema ya crea el índice
+// userSchema.index({ email: 1 }, { unique: true });
 userSchema.index({ role: 1 });
 userSchema.index({ isActive: 1 });
 

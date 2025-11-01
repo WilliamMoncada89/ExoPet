@@ -18,7 +18,11 @@ const app = express();
 
 // Configurar CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [
+    process.env.FRONTEND_URL || 'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:5173'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
@@ -39,25 +43,31 @@ app.use(helmet({
 
 // Rate limiting
 const limiter = rateLimit({
-  max: 100, // límite de requests por IP
-  windowMs: 60 * 60 * 1000, // 1 hora
-  message: 'Demasiadas peticiones desde esta IP, intenta nuevamente en una hora.',
+  max: process.env.NODE_ENV === 'development' ? 1000 : 100,
+  windowMs: process.env.NODE_ENV === 'development' ? 15 * 60 * 1000 : 60 * 60 * 1000, // 15 min en dev, 1 hora en prod
+  message: 'Demasiadas peticiones desde esta IP, intenta nuevamente más tarde.',
   standardHeaders: true,
   legacyHeaders: false,
 });
 app.use('/api/', limiter);
 
-// Body parser middleware
+// Body parser
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Logging middleware (simple console logging)
+// Logging middleware
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  if (req.path === '/products' && req.method === 'GET') {
+    console.log('🔍 Petición de productos detectada en middleware');
+  }
+  if (req.method === 'POST') {
+    console.log('📝 POST REQUEST DETECTED:', req.path);
+  }
   next();
 });
 
-// Health check endpoint
+// Health check
 app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
@@ -67,56 +77,47 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API Routes
+// Rutas principales
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 
-// Ruta para manejar rutas no encontradas
+// Manejo de rutas no encontradas
 app.all('*', (req, res, next) => {
   next(new AppError(`No se puede encontrar ${req.originalUrl} en este servidor!`, 404));
 });
 
-// Global error handling middleware
+// Middleware global de errores
 app.use(globalErrorHandler);
 
-// Conectar a MongoDB y iniciar servidor
-const PORT = process.env.PORT || 5000;
+// Conexión a MongoDB y arranque del servidor
+const PORT = process.env.PORT || 5002; // Forzar reinicio
 
 const startServer = async () => {
   try {
-    // Conectar a MongoDB
     await connectDB();
-    
-    // Iniciar servidor
     const server = app.listen(PORT, () => {
       console.log(`🚀 Servidor ExoPet ejecutándose en puerto ${PORT}`);
       console.log(`🌍 Entorno: ${process.env.NODE_ENV}`);
       console.log(`🔗 Frontend URL: ${process.env.FRONTEND_URL}`);
-      console.log(`💳 Transbank: ${process.env.TRANSBANK_ENVIRONMENT}`);
     });
 
-    // Manejo de errores no capturados
+    // Errores no controlados
     process.on('unhandledRejection', (err) => {
-      console.log('UNHANDLED REJECTION! 💥 Cerrando servidor...');
+      console.log('UNHANDLED REJECTION 💥 Cerrando servidor...');
       console.log(err.name, err.message);
-      server.close(() => {
-        process.exit(1);
-      });
+      server.close(() => process.exit(1));
     });
 
     process.on('uncaughtException', (err) => {
-      console.log('UNCAUGHT EXCEPTION! 💥 Cerrando servidor...');
+      console.log('UNCAUGHT EXCEPTION 💥 Cerrando servidor...');
       console.log(err.name, err.message);
       process.exit(1);
     });
 
-    // Graceful shutdown
     process.on('SIGTERM', () => {
-      console.log('👋 SIGTERM RECEIVED. Cerrando servidor gracefully...');
-      server.close(() => {
-        console.log('💥 Proceso terminado!');
-      });
+      console.log('👋 SIGTERM recibido. Cerrando servidor...');
+      server.close(() => console.log('💥 Proceso terminado!'));
     });
 
   } catch (error) {
@@ -125,7 +126,6 @@ const startServer = async () => {
   }
 };
 
-// Iniciar servidor
 startServer();
 
 export default app;

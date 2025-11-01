@@ -26,18 +26,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, 'La subcategoría es requerida'],
     enum: [
-      // Subcategorías de Aves
       'perchas', 'nidos', 'arneses', 'comederos', 'bebederos', 'juguetes', 'escondites', 'jaulas', 'alimentacion', 'higiene', 'transportadoras',
-      // Subcategorías de Mamíferos
-      'camas',
-      // Subcategorías de Reptiles
-      'terrarios', 'calefaccion', 'iluminacion',
-      // Subcategorías de Peces
-      'acuarios', 'filtros', 'calentadores',
-      // Subcategorías de Anfibios
-      'acuaterrarios', 'humidificacion', 'filtracion',
-      // Subcategorías de Arácnidos
-      'sustratos'
+      'camas', 'terrarios', 'calefaccion', 'iluminacion', 'sustratos', 'acuarios', 'filtros', 'calentadores',
+      'acuaterrarios', 'humidificacion', 'filtracion', 'termostatos', 'sustratos'
     ]
   },
   image: {
@@ -80,25 +71,19 @@ const productSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Índice de texto para búsqueda
 productSchema.index({ name: 'text', description: 'text', tags: 'text' });
-
-// Índices para filtros
 productSchema.index({ category: 1, subcategory: 1 });
 productSchema.index({ price: 1 });
 productSchema.index({ rating: -1 });
 
-// Método virtual para URL amigable
 productSchema.virtual('slug').get(function() {
   return this.name.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
 });
 
-// Método para verificar disponibilidad
 productSchema.methods.isAvailable = function(quantity = 1) {
   return this.isActive && this.stock >= quantity;
 };
 
-// Método para reducir stock
 productSchema.methods.reduceStock = function(quantity) {
   if (this.stock >= quantity) {
     this.stock -= quantity;
@@ -108,5 +93,4 @@ productSchema.methods.reduceStock = function(quantity) {
 };
 
 const Product = mongoose.model('Product', productSchema);
-
 export default Product;

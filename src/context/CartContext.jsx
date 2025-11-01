@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { checkStock } from '../services/productService';
 
 // Crear el contexto
 const CartContext = createContext();
@@ -9,14 +10,24 @@ const CART_ACTIONS = {
   REMOVE_ITEM: 'REMOVE_ITEM',
   UPDATE_QUANTITY: 'UPDATE_QUANTITY',
   CLEAR_CART: 'CLEAR_CART',
-  LOAD_CART: 'LOAD_CART'
+  LOAD_CART: 'LOAD_CART',
+  SET_STOCK_ERROR: 'SET_STOCK_ERROR',
+  CLEAR_STOCK_ERROR: 'CLEAR_STOCK_ERROR',
+  UPDATE_STOCK: 'UPDATE_STOCK'
 };
 
 // Estado inicial del carrito
 const initialState = {
   items: [],
   total: 0,
-  itemCount: 0
+  itemCount: 0,
+  stockError: null,
+  isCheckingStock: false
+};
+
+// Función para obtener el ID del producto (maneja tanto _id como id)
+const getProductId = (product) => {
+  return product.id || product._id;
 };
 
 // Función para calcular totales
@@ -31,7 +42,8 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case CART_ACTIONS.ADD_ITEM: {
       const { product, quantity = 1 } = action.payload;
-      const existingItemIndex = state.items.findIndex(item => item.id === product.id);
+      const productId = getProductId(product);
+      const existingItemIndex = state.items.findIndex(item => item.id === productId);
       
       let newItems;
       if (existingItemIndex >= 0) {
@@ -44,7 +56,7 @@ const cartReducer = (state, action) => {
       } else {
         // Si es un producto nuevo, agregarlo
         const newItem = {
-          id: product.id,
+          id: productId,
           name: product.name,
           price: product.price,
           image: product.image,
@@ -107,6 +119,43 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         items,
+        ...totals
+      };
+    }
+
+    case CART_ACTIONS.SET_STOCK_ERROR: {
+      return {
+        ...state,
+        stockError: action.payload.error,
+        isCheckingStock: false
+      };
+    }
+
+    case CART_ACTIONS.CLEAR_STOCK_ERROR: {
+      return {
+        ...state,
+        stockError: null
+      };
+    }
+
+    case CART_ACTIONS.UPDATE_STOCK: {
+      const { stockUpdates } = action.payload;
+      const newItems = state.items.map(item => {
+        const stockUpdate = stockUpdates.find(update => update.productId === item.id);
+        if (stockUpdate) {
+          return {
+            ...item,
+            stock: stockUpdate.availableStock,
+            quantity: Math.min(item.quantity, stockUpdate.availableStock)
+          };
+        }
+        return item;
+      });
+      
+      const totals = calculateTotals(newItems);
+      return {
+        ...state,
+        items: newItems,
         ...totals
       };
     }
@@ -193,11 +242,75 @@ export const CartProvider = ({ children }) => {
     }).format(price);
   };
 
+  // Verificar stock de todos los items del carrito
+  const validateCartStock = async () => {
+    if (state.items.length === 0) return true;
+
+    try {
+      dispatch({ type: CART_ACTIONS.CLEAR_STOCK_ERROR });
+      
+      const items = state.items.map(item => ({
+        productId: item.id, // Ya está normalizado por getProductId
+        quantity: item.quantity
+      }));
+
+      const stockResult = await checkStock(items);
+      
+      // Actualizar el stock de los productos en el carrito
+      if (stockResult.data.items) {
+        dispatch({
+          type: CART_ACTIONS.UPDATE_STOCK,
+          payload: { stockUpdates: stockResult.data.items }
+        });
+      }
+      
+      if (!stockResult.data.allAvailable) {
+        const unavailableItems = stockResult.data.items
+          .filter(item => !item.isAvailable)
+          .map(item => {
+            const cartItem = state.items.find(ci => ci.id === item.productId);
+            return `${cartItem?.name || 'Producto'}: solicitado ${item.requestedQuantity}, disponible ${item.availableStock}`;
+          });
+        
+        dispatch({ 
+          type: CART_ACTIONS.SET_STOCK_ERROR, 
+          payload: { 
+            error: `Stock insuficiente para: ${unavailableItems.join(', ')}` 
+          } 
+        });
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      dispatch({ 
+        type: CART_ACTIONS.SET_STOCK_ERROR, 
+        payload: { 
+          error: 'Error al verificar stock. Intenta nuevamente.' 
+        } 
+      });
+      return false;
+    }
+  };
+
+  // Limpiar errores de stock
+  const clearStockError = () => {
+    dispatch({ type: CART_ACTIONS.CLEAR_STOCK_ERROR });
+  };
+
+  // Verificar si se puede agregar más cantidad de un producto
+  const canAddMore = (productId, currentStock) => {
+    const currentQuantity = getItemQuantity(productId);
+    return currentQuantity < currentStock;
+  };
+
   const value = {
     // Estado
     items: state.items,
     total: state.total,
     itemCount: state.itemCount,
+    stockError: state.stockError,
+    isCheckingStock: state.isCheckingStock,
     
     // Acciones
     addItem,
@@ -208,7 +321,10 @@ export const CartProvider = ({ children }) => {
     // Utilidades
     getItemQuantity,
     isInCart,
-    formatPrice
+    formatPrice,
+    validateCartStock,
+    clearStockError,
+    canAddMore
   };
 
   return (

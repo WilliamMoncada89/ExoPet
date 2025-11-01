@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { productService } from '../services/productService';
+import { productService } from "../services/productService";
+
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
@@ -39,8 +40,8 @@ const Home = () => {
       try {
         const categoriesResponse = await productService.getCategories();
         
-        if (categoriesResponse.success) {
-          setCategories(categoriesResponse.data);
+        if (categoriesResponse.success && categoriesResponse.data.categories) {
+          setCategories(categoriesResponse.data.categories);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -128,22 +129,23 @@ const Home = () => {
         <div className="container">
           <h2>Categorías Populares</h2>
           <div className="categories-showcase">
-            {categories.slice(0, 4).map((category) => (
-              <Link 
-                key={category.id} 
-                to={`/productos?categoria=${category.slug}`} 
-                className="category-showcase-card"
-              >
-                <div className="category-icon">
-                  {category.name === 'Reptiles' && '🦎'}
-                  {category.name === 'Aves' && '🦜'}
-                  {category.name === 'Peces' && '🐠'}
-                  {category.name === 'Mamíferos' && '🐹'}
-                </div>
-                <h3>{category.name}</h3>
-                <p>{category.subcategories.length} productos</p>
-              </Link>
-            ))}
+            {categories && categories.length > 0 ? (
+              categories.slice(0, 4).map((category) => (
+                <Link 
+                  key={category.id} 
+                  to={`/productos?categoria=${category.id}`} 
+                  className="category-showcase-card"
+                >
+                  <div className="category-icon">
+                    {category.icon || '🐾'}
+                  </div>
+                  <h3>{category.name}</h3>
+                  <p>{category.productCount || 0} productos</p>
+                </Link>
+              ))
+            ) : (
+              <p>Cargando categorías...</p>
+            )}
           </div>
         </div>
       </section>

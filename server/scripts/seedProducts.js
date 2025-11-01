@@ -537,6 +537,424 @@ const products = [
     tags: ["comedero", "automático", "programable", "temporizador"]
   },
 
+  // MAMÍFEROS - Escondites (3 productos)
+  {
+    name: "Casa Iglú para Mascotas",
+    description: "Refugio cómodo y cálido con forma de iglú, perfecto para descansar.",
+    price: 45990,
+    category: "mamiferos",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 18,
+    rating: 4.8,
+    reviews: 26,
+    tags: ["iglú", "refugio", "cálido", "descanso"]
+  },
+  {
+    name: "Túnel de Juego Plegable",
+    description: "Túnel extensible que sirve como escondite y área de juego.",
+    price: 29990,
+    category: "mamiferos",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 25,
+    rating: 4.5,
+    reviews: 19,
+    tags: ["túnel", "plegable", "juego", "extensible"]
+  },
+  {
+    name: "Cueva de Felpa Premium",
+    description: "Escondite suave y acogedor hecho con materiales de alta calidad.",
+    price: 39990,
+    category: "mamiferos",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 20,
+    rating: 4.7,
+    reviews: 31,
+    tags: ["cueva", "felpa", "premium", "acogedor"]
+  },
+
+  // MAMÍFEROS - Juguetes (3 productos)
+  {
+    name: "Pelota Interactiva con Sonido",
+    description: "Pelota que emite sonidos y se mueve automáticamente para estimular el juego.",
+    price: 24990,
+    category: "mamiferos",
+    subcategory: "juguetes",
+    image: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400",
+    stock: 35,
+    rating: 4.6,
+    reviews: 42,
+    tags: ["pelota", "interactiva", "sonido", "automática"]
+  },
+  {
+    name: "Cuerda de Algodón Natural",
+    description: "Juguete de cuerda resistente hecho con algodón 100% natural.",
+    price: 12990,
+    category: "mamiferos",
+    subcategory: "juguetes",
+    image: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400",
+    stock: 50,
+    rating: 4.4,
+    reviews: 28,
+    tags: ["cuerda", "algodón", "natural", "resistente"]
+  },
+  {
+    name: "Puzzle Dispensador de Premios",
+    description: "Juguete mental que desafía a la mascota a resolver puzzles para obtener premios.",
+    price: 32990,
+    category: "mamiferos",
+    subcategory: "juguetes",
+    image: "https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=400",
+    stock: 28,
+    rating: 4.8,
+    reviews: 36,
+    tags: ["puzzle", "mental", "premios", "desafío"]
+  },
+
+  // MAMÍFEROS - Alimentación (3 productos)
+  {
+    name: "Alimento Premium para Perros",
+    description: "Alimento balanceado con ingredientes naturales y proteínas de alta calidad.",
+    price: 54990,
+    category: "mamiferos",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400",
+    stock: 40,
+    rating: 4.9,
+    reviews: 67,
+    tags: ["premium", "balanceado", "natural", "proteínas"]
+  },
+  {
+    name: "Snacks Dentales Naturales",
+    description: "Premios que ayudan a mantener la higiene dental mientras disfrutan.",
+    price: 18990,
+    category: "mamiferos",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400",
+    stock: 60,
+    rating: 4.7,
+    reviews: 45,
+    tags: ["snacks", "dentales", "naturales", "higiene"]
+  },
+  {
+    name: "Suplemento Vitamínico",
+    description: "Complemento nutricional con vitaminas y minerales esenciales.",
+    price: 29990,
+    category: "mamiferos",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1552053831-71594a27632d?w=400",
+    stock: 35,
+    rating: 4.6,
+    reviews: 23,
+    tags: ["suplemento", "vitamínico", "minerales", "nutricional"]
+  },
+
+  // MAMÍFEROS - Higiene y Cuidado (3 productos)
+  {
+    name: "Champú Hipoalergénico",
+    description: "Champú suave especialmente formulado para pieles sensibles.",
+    price: 22990,
+    category: "mamiferos",
+    subcategory: "higiene",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
+    stock: 45,
+    rating: 4.8,
+    reviews: 38,
+    tags: ["champú", "hipoalergénico", "suave", "sensibles"]
+  },
+  {
+    name: "Kit de Cepillado Profesional",
+    description: "Set completo con cepillos y peines para diferentes tipos de pelaje.",
+    price: 34990,
+    category: "mamiferos",
+    subcategory: "higiene",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
+    stock: 30,
+    rating: 4.7,
+    reviews: 29,
+    tags: ["kit", "cepillado", "profesional", "pelaje"]
+  },
+  {
+    name: "Toallitas Húmedas Antibacteriales",
+    description: "Toallitas de limpieza rápida con propiedades antibacteriales.",
+    price: 15990,
+    category: "mamiferos",
+    subcategory: "higiene",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400",
+    stock: 55,
+    rating: 4.5,
+    reviews: 41,
+    tags: ["toallitas", "húmedas", "antibacteriales", "limpieza"]
+  },
+
+  // MAMÍFEROS - Jaulas y Corrales (3 productos)
+  {
+    name: "Corral Plegable para Cachorros",
+    description: "Corral de entrenamiento plegable, ideal para cachorros y mascotas pequeñas.",
+    price: 89990,
+    category: "mamiferos",
+    subcategory: "jaulas",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 15,
+    rating: 4.6,
+    reviews: 22,
+    tags: ["corral", "plegable", "cachorros", "entrenamiento"]
+  },
+  {
+    name: "Jaula de Transporte Resistente",
+    description: "Jaula robusta para transporte seguro, aprobada por aerolíneas.",
+    price: 124990,
+    category: "mamiferos",
+    subcategory: "jaulas",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 12,
+    rating: 4.8,
+    reviews: 18,
+    tags: ["jaula", "transporte", "resistente", "aerolíneas"]
+  },
+  {
+    name: "Parque de Juegos Modular",
+    description: "Sistema modular que se puede configurar en diferentes formas y tamaños.",
+    price: 159990,
+    category: "mamiferos",
+    subcategory: "jaulas",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 8,
+    rating: 4.9,
+    reviews: 14,
+    tags: ["parque", "modular", "configurable", "juegos"]
+  },
+
+  // MAMÍFEROS - Transportadoras y Viaje (3 productos)
+  {
+    name: "Mochila Transportadora Ventilada",
+    description: "Mochila cómoda con ventilación superior para mascotas pequeñas.",
+    price: 67990,
+    category: "mamiferos",
+    subcategory: "transportadoras",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 20,
+    rating: 4.7,
+    reviews: 25,
+    tags: ["mochila", "ventilada", "cómoda", "pequeñas"]
+  },
+  {
+    name: "Bolso de Viaje con Ruedas",
+    description: "Transportadora con ruedas y mango telescópico para viajes largos.",
+    price: 94990,
+    category: "mamiferos",
+    subcategory: "transportadoras",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 15,
+    rating: 4.8,
+    reviews: 19,
+    tags: ["bolso", "ruedas", "telescópico", "viajes"]
+  },
+  {
+    name: "Asiento de Auto Seguro",
+    description: "Asiento elevador con arnés de seguridad para viajes en automóvil.",
+    price: 45990,
+    category: "mamiferos",
+    subcategory: "transportadoras",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 25,
+    rating: 4.6,
+    reviews: 33,
+    tags: ["asiento", "auto", "seguro", "arnés"]
+  },
+
+  // REPTILES - Bebederos y Comederos (3 productos)
+  {
+    name: "Comedero de Roca Natural",
+    description: "Comedero que imita rocas naturales, perfecto para reptiles terrestres.",
+    price: 24990,
+    category: "reptiles",
+    subcategory: "bebederos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 30,
+    rating: 4.6,
+    reviews: 22,
+    tags: ["comedero", "roca", "natural", "terrestres"]
+  },
+  {
+    name: "Bebedero con Cascada",
+    description: "Sistema de agua circulante que mantiene el agua fresca y oxigenada.",
+    price: 67990,
+    category: "reptiles",
+    subcategory: "bebederos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 15,
+    rating: 4.8,
+    reviews: 18,
+    tags: ["bebedero", "cascada", "circulante", "oxigenada"]
+  },
+  {
+    name: "Plato Hondo Antideslizante",
+    description: "Plato profundo con base antideslizante para agua y alimento.",
+    price: 18990,
+    category: "reptiles",
+    subcategory: "bebederos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 40,
+    rating: 4.5,
+    reviews: 35,
+    tags: ["plato", "hondo", "antideslizante", "profundo"]
+  },
+
+  // REPTILES - Escondites (3 productos)
+  {
+    name: "Cueva de Resina Natural",
+    description: "Refugio realista hecho de resina que imita formaciones rocosas naturales.",
+    price: 39990,
+    category: "reptiles",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 25,
+    rating: 4.7,
+    reviews: 28,
+    tags: ["cueva", "resina", "natural", "realista"]
+  },
+  {
+    name: "Tronco Hueco Decorativo",
+    description: "Escondite en forma de tronco hueco, perfecto para especies arbóreas.",
+    price: 32990,
+    category: "reptiles",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 20,
+    rating: 4.6,
+    reviews: 19,
+    tags: ["tronco", "hueco", "decorativo", "arbóreas"]
+  },
+  {
+    name: "Refugio de Corteza Natural",
+    description: "Escondite hecho con corteza natural, ideal para crear ambientes realistas.",
+    price: 26990,
+    category: "reptiles",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 35,
+    rating: 4.5,
+    reviews: 24,
+    tags: ["refugio", "corteza", "natural", "realistas"]
+  },
+
+  // REPTILES - Sustratos y Decoración (3 productos)
+  {
+    name: "Sustrato de Fibra de Coco",
+    description: "Sustrato natural que retiene humedad, ideal para especies tropicales.",
+    price: 19990,
+    category: "reptiles",
+    subcategory: "sustratos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 50,
+    rating: 4.8,
+    reviews: 42,
+    tags: ["sustrato", "fibra", "coco", "humedad"]
+  },
+  {
+    name: "Arena de Calcio Digestible",
+    description: "Arena especial que puede ser digerida sin causar impactación.",
+    price: 22990,
+    category: "reptiles",
+    subcategory: "sustratos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 45,
+    rating: 4.6,
+    reviews: 31,
+    tags: ["arena", "calcio", "digestible", "segura"]
+  },
+  {
+    name: "Musgo Preservado Natural",
+    description: "Musgo natural preservado que mantiene la humedad y decora el terrario.",
+    price: 15990,
+    category: "reptiles",
+    subcategory: "sustratos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 60,
+    rating: 4.7,
+    reviews: 38,
+    tags: ["musgo", "preservado", "natural", "decorativo"]
+  },
+
+  // REPTILES - Alimentación y Suplementos (3 productos)
+  {
+    name: "Pellets para Iguanas",
+    description: "Alimento balanceado específicamente formulado para iguanas y reptiles herbívoros.",
+    price: 34990,
+    category: "reptiles",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 35,
+    rating: 4.8,
+    reviews: 26,
+    tags: ["pellets", "iguanas", "balanceado", "herbívoros"]
+  },
+  {
+    name: "Suplemento de Calcio con D3",
+    description: "Polvo de calcio enriquecido con vitamina D3 para fortalecer huesos y caparazón.",
+    price: 18990,
+    category: "reptiles",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 55,
+    rating: 4.9,
+    reviews: 48,
+    tags: ["suplemento", "calcio", "D3", "huesos"]
+  },
+  {
+    name: "Grillos Deshidratados Premium",
+    description: "Grillos deshidratados ricos en proteínas, perfectos para reptiles insectívoros.",
+    price: 24990,
+    category: "reptiles",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 40,
+    rating: 4.7,
+    reviews: 33,
+    tags: ["grillos", "deshidratados", "proteínas", "insectívoros"]
+  },
+
+  // REPTILES - Termostatos (3 productos)
+  {
+    name: "Termostato Digital Preciso",
+    description: "Controlador de temperatura digital con precisión de ±1°C.",
+    price: 89990,
+    category: "reptiles",
+    subcategory: "termostatos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 20,
+    rating: 4.9,
+    reviews: 22,
+    tags: ["termostato", "digital", "preciso", "controlador"]
+  },
+  {
+    name: "Termostato Día/Noche",
+    description: "Sistema que permite diferentes temperaturas para ciclos diurnos y nocturnos.",
+    price: 124990,
+    category: "reptiles",
+    subcategory: "termostatos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 15,
+    rating: 4.8,
+    reviews: 18,
+    tags: ["termostato", "día", "noche", "ciclos"]
+  },
+  {
+    name: "Termostato Básico Analógico",
+    description: "Controlador de temperatura simple y confiable para principiantes.",
+    price: 45990,
+    category: "reptiles",
+    subcategory: "termostatos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 30,
+    rating: 4.5,
+    reviews: 25,
+    tags: ["termostato", "básico", "analógico", "principiantes"]
+  },
+
   // REPTILES - Terrarios (3 productos)
   {
     name: "Terrario de Vidrio 120x60x60",
@@ -649,6 +1067,272 @@ const products = [
     rating: 4.5,
     reviews: 21,
     tags: ["lámpara", "basking", "halógena", "intensidad"]
+  },
+
+  // ANFIBIOS - Bebederos y Comederos (3 productos)
+  {
+    name: "Comedero Flotante para Anfibios",
+    description: "Comedero que flota en el agua, ideal para especies acuáticas y semi-acuáticas.",
+    price: 28990,
+    category: "anfibios",
+    subcategory: "bebederos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 25,
+    rating: 4.6,
+    reviews: 19,
+    tags: ["comedero", "flotante", "acuáticas", "semi-acuáticas"]
+  },
+  {
+    name: "Plato de Agua Poco Profundo",
+    description: "Recipiente de agua con bordes bajos, perfecto para ranas y salamandras.",
+    price: 15990,
+    category: "anfibios",
+    subcategory: "bebederos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 40,
+    rating: 4.5,
+    reviews: 32,
+    tags: ["plato", "agua", "poco profundo", "ranas"]
+  },
+  {
+    name: "Sistema de Goteo Continuo",
+    description: "Dispensador de agua que mantiene un flujo constante para estimular la bebida.",
+    price: 45990,
+    category: "anfibios",
+    subcategory: "bebederos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 20,
+    rating: 4.7,
+    reviews: 15,
+    tags: ["goteo", "continuo", "flujo", "estimular"]
+  },
+
+  // ANFIBIOS - Escondites (3 productos)
+  {
+    name: "Cueva de Musgo Natural",
+    description: "Refugio cubierto de musgo natural que mantiene la humedad.",
+    price: 34990,
+    category: "anfibios",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 30,
+    rating: 4.8,
+    reviews: 24,
+    tags: ["cueva", "musgo", "natural", "humedad"]
+  },
+  {
+    name: "Tronco Hueco Sumergible",
+    description: "Escondite que puede usarse tanto en tierra como sumergido en agua.",
+    price: 42990,
+    category: "anfibios",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 18,
+    rating: 4.7,
+    reviews: 21,
+    tags: ["tronco", "hueco", "sumergible", "versátil"]
+  },
+  {
+    name: "Refugio de Corteza Húmeda",
+    description: "Escondite hecho con corteza que retiene humedad naturalmente.",
+    price: 26990,
+    category: "anfibios",
+    subcategory: "escondites",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 35,
+    rating: 4.6,
+    reviews: 28,
+    tags: ["refugio", "corteza", "húmeda", "natural"]
+  },
+
+  // ANFIBIOS - Sustratos (3 productos)
+  {
+    name: "Sustrato de Turba Tropical",
+    description: "Sustrato natural que mantiene alta humedad, ideal para anfibios tropicales.",
+    price: 22990,
+    category: "anfibios",
+    subcategory: "sustratos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 45,
+    rating: 4.8,
+    reviews: 36,
+    tags: ["sustrato", "turba", "tropical", "humedad"]
+  },
+  {
+    name: "Musgo Sphagnum Vivo",
+    description: "Musgo vivo que purifica el aire y mantiene condiciones húmedas ideales.",
+    price: 18990,
+    category: "anfibios",
+    subcategory: "sustratos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 50,
+    rating: 4.9,
+    reviews: 42,
+    tags: ["musgo", "sphagnum", "vivo", "purifica"]
+  },
+  {
+    name: "Grava de Río Lavada",
+    description: "Grava natural de río, perfecta para áreas acuáticas en terrarios de anfibios.",
+    price: 16990,
+    category: "anfibios",
+    subcategory: "sustratos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 60,
+    rating: 4.5,
+    reviews: 29,
+    tags: ["grava", "río", "lavada", "acuáticas"]
+  },
+
+  // ANFIBIOS - Alimentación (3 productos)
+  {
+    name: "Pellets para Ranas Acuáticas",
+    description: "Alimento flotante específicamente formulado para ranas acuáticas.",
+    price: 24990,
+    category: "anfibios",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 35,
+    rating: 4.7,
+    reviews: 28,
+    tags: ["pellets", "ranas", "acuáticas", "flotante"]
+  },
+  {
+    name: "Gusanos de Sangre Liofilizados",
+    description: "Alimento rico en proteínas, ideal para anfibios carnívoros.",
+    price: 19990,
+    category: "anfibios",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 40,
+    rating: 4.8,
+    reviews: 33,
+    tags: ["gusanos", "sangre", "liofilizados", "proteínas"]
+  },
+  {
+    name: "Suplemento de Calcio Líquido",
+    description: "Suplemento líquido de calcio que se puede agregar al agua o alimento.",
+    price: 16990,
+    category: "anfibios",
+    subcategory: "alimentacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 55,
+    rating: 4.6,
+    reviews: 25,
+    tags: ["suplemento", "calcio", "líquido", "agua"]
+  },
+
+  // ANFIBIOS - Iluminación (3 productos)
+  {
+    name: "Lámpara UVB para Anfibios",
+    description: "Iluminación UVB específica para anfibios que necesitan exposición controlada.",
+    price: 67990,
+    category: "anfibios",
+    subcategory: "iluminacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 20,
+    rating: 4.8,
+    reviews: 18,
+    tags: ["lámpara", "UVB", "anfibios", "controlada"]
+  },
+  {
+    name: "LED de Espectro Completo",
+    description: "Iluminación LED que simula la luz natural del día para terrarios plantados.",
+    price: 89990,
+    category: "anfibios",
+    subcategory: "iluminacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 15,
+    rating: 4.9,
+    reviews: 22,
+    tags: ["LED", "espectro", "completo", "plantados"]
+  },
+  {
+    name: "Luz Nocturna Roja",
+    description: "Iluminación nocturna que no interfiere con los ciclos naturales de los anfibios.",
+    price: 32990,
+    category: "anfibios",
+    subcategory: "iluminacion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 30,
+    rating: 4.5,
+    reviews: 16,
+    tags: ["luz", "nocturna", "roja", "ciclos"]
+  },
+
+  // ANFIBIOS - Calefacción (3 productos)
+  {
+    name: "Calentador Sumergible Ajustable",
+    description: "Calentador de agua sumergible con control de temperatura preciso.",
+    price: 45990,
+    category: "anfibios",
+    subcategory: "calefaccion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 25,
+    rating: 4.7,
+    reviews: 20,
+    tags: ["calentador", "sumergible", "ajustable", "preciso"]
+  },
+  {
+    name: "Manta Térmica de Baja Potencia",
+    description: "Manta calefactora suave ideal para anfibios sensibles al calor.",
+    price: 38990,
+    category: "anfibios",
+    subcategory: "calefaccion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 22,
+    rating: 4.6,
+    reviews: 17,
+    tags: ["manta", "térmica", "baja potencia", "sensibles"]
+  },
+  {
+    name: "Cable Calefactor Flexible",
+    description: "Cable calefactor que se puede colocar bajo el sustrato para calor de fondo.",
+    price: 52990,
+    category: "anfibios",
+    subcategory: "calefaccion",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 18,
+    rating: 4.8,
+    reviews: 14,
+    tags: ["cable", "calefactor", "flexible", "sustrato"]
+  },
+
+  // ANFIBIOS - Termostatos (3 productos)
+  {
+    name: "Termostato Digital para Anfibios",
+    description: "Controlador de temperatura específico para las necesidades de anfibios.",
+    price: 78990,
+    category: "anfibios",
+    subcategory: "termostatos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 20,
+    rating: 4.8,
+    reviews: 15,
+    tags: ["termostato", "digital", "anfibios", "específico"]
+  },
+  {
+    name: "Controlador de Humedad y Temperatura",
+    description: "Sistema dual que controla tanto temperatura como humedad automáticamente.",
+    price: 124990,
+    category: "anfibios",
+    subcategory: "termostatos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 12,
+    rating: 4.9,
+    reviews: 11,
+    tags: ["controlador", "humedad", "temperatura", "dual"]
+  },
+  {
+    name: "Termostato Básico Resistente al Agua",
+    description: "Controlador simple y resistente al agua para ambientes húmedos.",
+    price: 56990,
+    category: "anfibios",
+    subcategory: "termostatos",
+    image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400",
+    stock: 25,
+    rating: 4.6,
+    reviews: 19,
+    tags: ["termostato", "básico", "resistente", "húmedos"]
   },
 
   // ANFIBIOS - Acuaterrarios (3 productos)

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { productService } from '../services/productService';
+import { productService, checkStock } from '../services/productService';
 import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addItem, isInCart, getItemQuantity } = useCart();
+  const { addItem, isInCart, getItemQuantity, canAddMore, validateCartStock, stockError, clearStockError } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,27 +35,58 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleQuantityChange = (newQuantity) => {
-    if (newQuantity >= 1 && newQuantity <= product.stock) {
+    const currentInCart = getItemQuantity(product.id || product._id);
+    const maxAvailable = product.stock - currentInCart;
+    
+    if (newQuantity >= 1 && newQuantity <= maxAvailable) {
       setQuantity(newQuantity);
+      clearStockError();
     }
   };
 
   const handleAddToCart = async () => {
     if (!product || product.stock === 0) return;
 
+    const currentInCart = getItemQuantity(product.id || product._id);
+    const totalRequested = currentInCart + quantity;
+    
+    if (totalRequested > product.stock) {
+      alert(`Solo puedes agregar ${product.stock - currentInCart} unidades más. Ya tienes ${currentInCart} en el carrito.`);
+      return;
+    }
+
     setAddingToCart(true);
     try {
+      // Log temporal para debug
+      console.log('🔍 ProductDetail - Estructura del producto:', product);
+      console.log('🔍 ProductDetail - product.id:', product.id);
+      console.log('🔍 ProductDetail - product._id:', product._id);
+      
+      // Verificar stock real del producto usando la función ya importada
+      
+      // Verificar stock real del producto específico
+      const stockResult = await checkStock([{
+        productId: product.id || product._id,
+        quantity: totalRequested
+      }]);
+      
+      if (!stockResult.data.allAvailable) {
+        const stockInfo = stockResult.data.items[0];
+        alert(`Stock insuficiente. Disponible: ${stockInfo.availableStock}, solicitado: ${stockInfo.requestedQuantity}`);
+        return;
+      }
+
       // Agregar al carrito usando el contexto
       addItem(product, quantity);
       
       // Mostrar mensaje de éxito
-      alert(`¡${product.name} agregado al carrito!`);
+      alert(`¡${quantity} ${product.name}${quantity > 1 ? 's' : ''} agregado${quantity > 1 ? 's' : ''} al carrito!`);
       
       // Resetear cantidad a 1
       setQuantity(1);
     } catch (err) {
       console.error('Error adding to cart:', err);
-      alert('Error al agregar al carrito');
+      alert('Error al agregar al carrito. Por favor, intenta nuevamente.');
     } finally {
       setAddingToCart(false);
     }
@@ -108,6 +139,8 @@ const ProductDetail = () => {
 
   const stockStatus = getStockStatus(product.stock);
   const images = product.images || [product.image];
+  const currentInCart = getItemQuantity(product.id || product._id);
+  const maxAvailable = product.stock - currentInCart;
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -212,8 +245,31 @@ const ProductDetail = () => {
 
             {/* Controles de compra */}
             <div className="purchase-controls">
+              {/* Información del carrito */}
+              {currentInCart > 0 && (
+                <div className="cart-info mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                  <p className="text-sm text-blue-800">
+                    Ya tienes <strong>{currentInCart}</strong> unidad{currentInCart > 1 ? 'es' : ''} en el carrito
+                  </p>
+                </div>
+              )}
+
+              {/* Error de stock */}
+              {stockError && (
+                <div className="stock-error mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
+                  <p className="text-sm text-red-800">{stockError}</p>
+                </div>
+              )}
+
               <div className="quantity-selector">
-                <label htmlFor="quantity">Cantidad:</label>
+                <label htmlFor="quantity">
+                  Cantidad: 
+                  {maxAvailable > 0 && (
+                    <span className="text-sm text-gray-600 ml-2">
+                      (máximo {maxAvailable} disponible{maxAvailable > 1 ? 's' : ''})
+                    </span>
+                  )}
+                </label>
                 <div className="quantity-input-group">
                   <button
                     type="button"
@@ -227,7 +283,7 @@ const ProductDetail = () => {
                     id="quantity"
                     type="number"
                     min="1"
-                    max={product.stock}
+                    max={maxAvailable}
                     value={quantity}
                     onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
                     className="quantity-input"
@@ -235,7 +291,7 @@ const ProductDetail = () => {
                   <button
                     type="button"
                     onClick={() => handleQuantityChange(quantity + 1)}
-                    disabled={quantity >= product.stock}
+                    disabled={quantity >= maxAvailable || maxAvailable === 0}
                     className="quantity-btn"
                   >
                     +
@@ -246,9 +302,9 @@ const ProductDetail = () => {
               <div className="action-buttons">
                 <button
                   onClick={handleAddToCart}
-                  disabled={product.stock === 0 || addingToCart}
+                  disabled={product.stock === 0 || addingToCart || maxAvailable === 0}
                   className={`btn btn-primary add-to-cart-btn ${
-                    product.stock === 0 || addingToCart ? 'btn-disabled' : ''
+                    product.stock === 0 || addingToCart || maxAvailable === 0 ? 'btn-disabled' : ''
                   }`}
                 >
                   {addingToCart ? (
@@ -258,6 +314,8 @@ const ProductDetail = () => {
                     </>
                   ) : product.stock === 0 ? (
                     'Sin stock'
+                  ) : maxAvailable === 0 ? (
+                    'Máximo en carrito'
                   ) : (
                     <>
                       🛒 Agregar al carrito

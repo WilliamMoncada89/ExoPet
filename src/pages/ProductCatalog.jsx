@@ -1,315 +1,323 @@
-import React, { useState, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { Search, Filter, Grid, List } from 'lucide-react'
-import ProductCard from '../components/ProductCard'
-import { productService } from '../services/productService'
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { productService } from "../services/productService";
+import ProductCard from '../components/ProductCard';
 
 const ProductCatalog = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [products, setProducts] = useState([])
-  const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [viewMode, setViewMode] = useState('grid')
-  const [filters, setFilters] = useState({
-    category: searchParams.get('categoria') || 'all',
-    subcategory: searchParams.get('subcategoria') || 'all',
-    search: searchParams.get('busqueda') || searchParams.get('search') || '',
-    sortBy: 'name-asc',
-    minPrice: '',
-    maxPrice: ''
-  })
+  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]); // Todos los productos para filtrado local
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searching, setSearching] = useState(false);
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  const [localSearch, setLocalSearch] = useState(''); // Estado local para el input
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  const searchTimeoutRef = useRef(null);
 
-  const sortOptions = [
-    { value: 'name-asc', label: 'Nombre A-Z' },
-    { value: 'name-desc', label: 'Nombre Z-A' },
-    { value: 'price-asc', label: 'Precio: Menor a Mayor' },
-    { value: 'price-desc', label: 'Precio: Mayor a Menor' }
-  ]
+  // Obtener parámetros de URL
+  const categoria = searchParams.get('categoria') || '';
+  const subcategoria = searchParams.get('subcategoria') || '';
+  const busqueda = searchParams.get('busqueda') || '';
+
+  // Sincronizar el estado local con el parámetro de URL
+  useEffect(() => {
+    setLocalSearch(busqueda);
+  }, [busqueda]);
 
   useEffect(() => {
-    fetchInitialData()
-  }, [])
-
-  useEffect(() => {
-    // Actualizar filtros basados en parámetros de URL
-    const categoryParam = searchParams.get('categoria') || 'all'
-    const subcategoryParam = searchParams.get('subcategoria') || 'all'
-    const searchParam = searchParams.get('busqueda') || searchParams.get('search') || ''
-    
-    setFilters(prev => ({
-      ...prev,
-      category: categoryParam,
-      subcategory: subcategoryParam,
-      search: searchParam
-    }))
-  }, [searchParams])
-
-  useEffect(() => {
-    fetchProducts()
-  }, [filters])
-
-  const fetchInitialData = async () => {
-    try {
-      const categoriesResponse = await productService.getCategories()
-      if (categoriesResponse.success) {
-        const allCategories = [
-          { id: 'all', name: 'Todas las Categorías' },
-          ...categoriesResponse.data
-        ]
-        setCategories(allCategories)
+    const fetchCategories = async () => {
+      try {
+        const response = await productService.getCategories();
+        if (response.success && response.data.categories) {
+          setCategories(response.data.categories);
+        }
+      } catch (error) {
+        console.error('Error fetching categories:', error);
       }
-    } catch (error) {
-      console.error('Error fetching categories:', error)
-    }
-  }
+    };
+    fetchCategories();
+  }, []);
 
-  const fetchProducts = async () => {
-    try {
-      setLoading(true)
-      
-      // Preparar filtros para la API
-      const apiFilters = { ...filters }
-      
-      // Si la categoría es 'all', no enviar el filtro de categoría
-      if (apiFilters.category === 'all') {
-        delete apiFilters.category
+  // Función para filtrar productos localmente
+  const filterProductsLocally = useCallback((searchTerm, categoryFilter, subcategoryFilter, productList) => {
+    let filtered = [...productList];
+
+    // Filtrar por categoría
+    if (categoryFilter) {
+      filtered = filtered.filter(product => product.category === categoryFilter);
+    }
+
+    // Filtrar por subcategoría
+    if (subcategoryFilter) {
+      filtered = filtered.filter(product => product.subcategory === subcategoryFilter);
+    }
+
+    // Filtrar por búsqueda (solo si hay término de búsqueda)
+    if (searchTerm && searchTerm.length > 0) {
+      const searchLower = searchTerm.toLowerCase();
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(searchLower) ||
+        product.description.toLowerCase().includes(searchLower)
+      );
+    }
+
+    return filtered;
+  }, []);
+
+  // Función debounced para actualizar la URL
+  const debouncedSearch = useCallback((searchTerm) => {
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    searchTimeoutRef.current = setTimeout(() => {
+      const params = new URLSearchParams(searchParams);
+      if (searchTerm && searchTerm.trim()) {
+        params.set('busqueda', searchTerm.trim());
+      } else {
+        params.delete('busqueda');
       }
-      
-      const response = await productService.getAllProducts(apiFilters)
-      setProducts(response.data)
-    } catch (error) {
-      console.error('Error fetching products:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+      setSearchParams(params);
+      setSearching(false);
+    }, 300); // 300ms de delay
+  }, [searchParams, setSearchParams]);
 
-  const handleFilterChange = (key, value) => {
-    const newFilters = { ...filters, [key]: value }
-    
-    // Si cambia la categoría, resetear subcategoría
-    if (key === 'category') {
-      newFilters.subcategory = 'all'
-    }
-    
-    setFilters(newFilters)
-    
-    // Actualizar URL params
-    const newSearchParams = new URLSearchParams()
-    if (newFilters.category !== 'all') {
-      newSearchParams.set('categoria', newFilters.category)
-    }
-    if (newFilters.subcategory !== 'all') {
-      newSearchParams.set('subcategoria', newFilters.subcategory)
-    }
-    if (newFilters.search) {
-      newSearchParams.set('busqueda', newFilters.search)
-    }
-    setSearchParams(newSearchParams)
-  }
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const filters = {};
+        if (categoria) filters.category = categoria;
+        if (subcategoria) filters.subcategory = subcategoria;
+        // No incluir búsqueda en la llamada inicial para obtener todos los productos de la categoría
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault()
-    fetchProducts()
-  }
+        const response = await productService.getAllProducts(filters);
+        console.log('🔍 ProductCatalog: Respuesta de getAllProducts:', response);
+        if (response.success && response.data.products) {
+          const fetchedProducts = response.data.products;
+          console.log('✅ ProductCatalog: Productos cargados:', fetchedProducts.length);
+          setAllProducts(fetchedProducts);
+          
+          // Aplicar filtro de búsqueda localmente si existe
+          const filteredProducts = filterProductsLocally(busqueda, categoria, subcategoria, fetchedProducts);
+          setProducts(filteredProducts);
+        } else {
+          console.log('❌ ProductCatalog: No se pudieron cargar productos');
+          setAllProducts([]);
+          setProducts([]);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setAllProducts([]);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const clearFilters = () => {
-    setFilters({
-      category: 'all',
-      subcategory: 'all',
-      search: '',
-      sortBy: 'name-asc',
-      minPrice: '',
-      maxPrice: ''
-    })
-    setSearchParams({})
-  }
+    fetchProducts();
+  }, [categoria, subcategoria]); // Removido 'busqueda' de las dependencias
+
+  // Efecto separado para manejar cambios en la búsqueda
+  useEffect(() => {
+    if (allProducts.length > 0) {
+      const filteredProducts = filterProductsLocally(busqueda, categoria, subcategoria, allProducts);
+      setProducts(filteredProducts);
+    }
+  }, [busqueda, allProducts, filterProductsLocally, categoria, subcategoria]);
+
+  const handleCategoryChange = (newCategory) => {
+    const params = new URLSearchParams(searchParams);
+    if (newCategory) {
+      params.set('categoria', newCategory);
+    } else {
+      params.delete('categoria');
+    }
+    params.delete('subcategoria'); // Reset subcategory when changing category
+    setSearchParams(params);
+  };
+
+  const handleSubcategoryChange = (newSubcategory) => {
+    const params = new URLSearchParams(searchParams);
+    if (newSubcategory) {
+      params.set('subcategoria', newSubcategory);
+    } else {
+      params.delete('subcategoria');
+    }
+    setSearchParams(params);
+  };
+
+  const handleSearchChange = (newSearch) => {
+    setLocalSearch(newSearch); // Actualizar estado local inmediatamente
+    setSearching(true); // Mostrar indicador de búsqueda
+    
+    // Filtrar productos inmediatamente para respuesta instantánea
+    if (allProducts.length > 0) {
+      const filteredProducts = filterProductsLocally(newSearch, categoria, subcategoria, allProducts);
+      setProducts(filteredProducts);
+    }
+    
+    // Actualizar URL con debounce
+    debouncedSearch(newSearch);
+  };
 
   // Obtener subcategorías de la categoría seleccionada
-  const getSubcategories = () => {
-    if (filters.category === 'all') return []
-    const selectedCategory = categories.find(cat => cat.id === filters.category)
-    return selectedCategory?.subcategories || []
-  }
+  const selectedCategory = categories.find(cat => cat.id === categoria);
+  const availableSubcategories = selectedCategory?.subcategories || [];
+
+  // Obtener nombre de la categoría para mostrar
+  const getCategoryDisplayName = () => {
+    if (categoria) {
+      const cat = categories.find(c => c.id === categoria);
+      return cat?.name || categoria.charAt(0).toUpperCase() + categoria.slice(1);
+    }
+    return 'Todos los productos';
+  };
+
+  if (loading) return (
+    <div className="catalog-container">
+      <div className="loading-spinner">
+        <p>Cargando productos...</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container">
-        {/* Header */}
-        <div className="catalog-header mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            Catálogo de Animales Exóticos
-          </h1>
-          <p className="text-lg text-gray-600">
-            Descubre nuestra amplia selección de animales exóticos
+    <div className="catalog-container">
+      <div className="catalog-header">
+        <div className="catalog-title-section">
+          <h1>{getCategoryDisplayName()}</h1>
+          {subcategoria && (
+            <h2 className="subcategory-title">
+              {subcategoria.charAt(0).toUpperCase() + subcategoria.slice(1)}
+            </h2>
+          )}
+          <p className="products-count">
+            {products.length} producto{products.length !== 1 ? 's' : ''} encontrado{products.length !== 1 ? 's' : ''}
           </p>
         </div>
-
-        {/* Filters and Search */}
-        <div className="filters-section card mb-8">
-          <div className="filters-row">
-            {/* Search */}
-            <form onSubmit={handleSearchSubmit} className="search-form">
-              <div className="search-input-group">
-                <Search size={20} className="search-icon" />
-                <input
-                  type="text"
-                  placeholder="Buscar animales..."
-                  value={filters.search}
-                  onChange={(e) => handleFilterChange('search', e.target.value)}
-                  className="search-input"
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Buscar
-              </button>
-            </form>
-
-            {/* View Mode Toggle */}
-            <div className="view-toggle">
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
-              >
-                <Grid size={20} />
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
-              >
-                <List size={20} />
-              </button>
-            </div>
-          </div>
-
-          <div className="filters-row">
-            {/* Category Filter */}
-            <div className="filter-group">
-              <label className="filter-label">Categoría:</label>
-              <select
-                value={filters.category}
-                onChange={(e) => handleFilterChange('category', e.target.value)}
-                className="filter-select"
-              >
-                {Array.isArray(categories) && categories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Subcategory Filter */}
-            {filters.category !== 'all' && getSubcategories().length > 0 && (
-              <div className="filter-group">
-                <label className="filter-label">Tipo de Producto:</label>
-                <select
-                  value={filters.subcategory}
-                  onChange={(e) => handleFilterChange('subcategory', e.target.value)}
-                  className="filter-select"
-                >
-                  <option value="all">Todos los productos</option>
-                  {getSubcategories().map(subcategory => (
-                    <option key={subcategory.id} value={subcategory.id}>
-                      {subcategory.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-
-            {/* Sort Filter */}
-            <div className="filter-group">
-              <label className="filter-label">Ordenar por:</label>
-              <select
-                value={filters.sortBy}
-                onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-                className="filter-select"
-              >
-                {sortOptions.map(option => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Price Range */}
-            <div className="filter-group">
-              <label className="filter-label">Precio:</label>
-              <div className="price-range">
-                <input
-                  type="number"
-                  placeholder="Mín"
-                  value={filters.minPrice}
-                  onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                  className="price-input"
-                />
-                <span>-</span>
-                <input
-                  type="number"
-                  placeholder="Máx"
-                  value={filters.maxPrice}
-                  onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                  className="price-input"
-                />
-              </div>
-            </div>
-
-            {/* Clear Filters */}
-            <button onClick={clearFilters} className="btn btn-secondary">
-              Limpiar Filtros
+        
+        <div className="view-controls">
+          <div className="view-toggle">
+            <button 
+              className={`view-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              onClick={() => setViewMode('grid')}
+              title="Vista de cuadrícula"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z"/>
+              </svg>
+            </button>
+            <button 
+              className={`view-btn ${viewMode === 'list' ? 'active' : ''}`}
+              onClick={() => setViewMode('list')}
+              title="Vista de lista"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+              </svg>
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Results Header */}
-        <div className="results-header mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">
-            {filters.category !== 'all' && filters.subcategory !== 'all' 
-              ? `${categories.find(cat => cat.id === filters.category)?.name || ''} - ${getSubcategories().find(sub => sub.id === filters.subcategory)?.name || ''}`
-              : filters.category !== 'all' 
-                ? categories.find(cat => cat.id === filters.category)?.name || 'Productos'
-                : 'Todos los Productos'
-            }
-          </h2>
-          <p className="text-gray-600">
-            {loading ? 'Cargando...' : `${products.length} productos encontrados`}
-          </p>
+      <div className="filters-section">
+          <div className="filters">
+            <div className="filter-group">
+              <label htmlFor="search">Buscar:</label>
+              <div className="search-input-container">
+                <input
+                  id="search"
+                  type="text"
+                  placeholder="Buscar producto..."
+                  value={localSearch}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  className="search-input"
+                />
+                {searching && (
+                  <div className="search-indicator">
+                    <span className="search-spinner"></span>
+                  </div>
+                )}
+                {localSearch && (
+                  <button
+                    className="clear-search-btn"
+                    onClick={() => handleSearchChange('')}
+                    title="Limpiar búsqueda"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            </div>
+
+          <div className="filter-group">
+            <label htmlFor="category">Categoría:</label>
+            <select 
+              id="category"
+              value={categoria} 
+              onChange={(e) => handleCategoryChange(e.target.value)}
+              className="category-select"
+            >
+              <option value="">Todas las categorías</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {categoria && availableSubcategories.length > 0 && (
+            <div className="filter-group">
+              <label htmlFor="subcategory">Subcategoría:</label>
+              <select 
+                id="subcategory"
+                value={subcategoria} 
+                onChange={(e) => handleSubcategoryChange(e.target.value)}
+                className="subcategory-select"
+              >
+                <option value="">Todas las subcategorías</option>
+                {availableSubcategories.map((subcat, index) => (
+                  <option key={`${categoria}-${subcat}-${index}`} value={subcat}>
+                    {subcat.charAt(0).toUpperCase() + subcat.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
-        {/* Products Grid */}
-        {loading ? (
-          <div className="loading-state">
-            <div className="text-center py-12">
-              <p className="text-lg text-gray-600">Cargando productos...</p>
-            </div>
-          </div>
-        ) : products.length === 0 ? (
-          <div className="empty-state">
-            <div className="text-center py-12">
-              <Filter size={48} className="mx-auto text-gray-400 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                No se encontraron productos
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Intenta ajustar los filtros o buscar con otros términos
-              </p>
-              <button onClick={clearFilters} className="btn btn-primary">
-                Ver todos los productos
-              </button>
-            </div>
-          </div>
+        {(categoria || subcategoria || busqueda) && (
+          <button 
+            className="clear-filters-btn"
+            onClick={() => setSearchParams({})}
+          >
+            Limpiar filtros
+          </button>
+        )}
+      </div>
+
+      <div className={`product-container ${viewMode === 'list' ? 'product-list' : 'product-grid'}`}>
+        {products.length > 0 ? (
+          products.map((product) => (
+            <ProductCard key={product._id} product={product} viewMode={viewMode} />
+          ))
         ) : (
-          <div className={`products-grid ${viewMode === 'list' ? 'list-view' : 'grid-view'}`}>
-            {products.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+          <div className="no-products">
+            <p>No se encontraron productos con los filtros seleccionados.</p>
+            <button 
+              className="clear-filters-btn"
+              onClick={() => setSearchParams({})}
+            >
+              Ver todos los productos
+            </button>
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductCatalog
+export default ProductCatalog;
